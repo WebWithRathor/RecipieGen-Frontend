@@ -17,7 +17,11 @@ const Create = () => {
     }
     setLoading(true);
     try {
-      navigate('/pickAny', { state: { description, ingredients } });
+      if (ingredients.length == 0) {
+        setError("Please add at least one ingredient");
+        return;
+      }
+      navigate("/pickAny", { state: { description, ingredients } });
     } catch (error) {
       setError("Failed to generate recipe.");
     } finally {
@@ -33,14 +37,13 @@ const Create = () => {
   };
 
   return (
-    <div 
-    className="h-screen w-full flex items-center justify-center">
+    <div className="h-screen w-full flex items-center justify-center">
       <div className="w-1/3 border mx-auto bg-white p-6 rounded-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Generate Recipe
         </h2>
 
-        {error && <p className="text-red-600 text-center">{error}</p>}
+        {error && <p className="text-red-600 mb-2 text-center">{error}</p>}
 
         <form onSubmit={submitHandler} className="space-y-6">
           <div>

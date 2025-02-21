@@ -18,11 +18,9 @@ const Recipe = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-50">
-        <div className="text-center">
+      <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
           <div className="h-16 w-16 border-4 border-gray-300 border-t-4 border-t-red-500 rounded-full animate-spin"></div>
           <p className="text-lg font-medium text-gray-700 mt-4">Fetching recipe details...</p>
-        </div>
       </div>
     );
   }
