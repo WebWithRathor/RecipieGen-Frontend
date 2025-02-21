@@ -8,7 +8,6 @@ import RecipePicker from "../components/RecipePicker";
 
 const AppRoutes = () => {
   return (
-    <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recipes" element={<Recipes />} />
@@ -16,7 +15,6 @@ const AppRoutes = () => {
         <Route path="/pickAny" element={<RecipePicker />} />
         <Route path="/recipe/:dishname" element={<Recipe />} />
       </Routes>
-    </>
   );
 };
 
