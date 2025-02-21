@@ -23,7 +23,7 @@ const Navbar = () => {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="text-red-950 text-sm duration-75 cursor-pointer md:hidden"
       >
-        {isMenuOpen ? "Close Menu" : "Open Menu"}
+        {isMenuOpen ? "✖" : "☰"}
       </button>
 
       {/* Mobile Menu */}
@@ -38,33 +38,93 @@ const Navbar = () => {
         >
           ✖
         </button>
-        <NavLink to="/" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")} onClick={() => setIsMenuOpen(false)}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">Home</h5>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">
+            Home
+          </h5>
         </NavLink>
-        <NavLink to="/recipes" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")} onClick={() => setIsMenuOpen(false)}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">Recipes</h5>
+        <NavLink
+          to="/recipes"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">
+            Recipes
+          </h5>
         </NavLink>
-        <NavLink to="/donation-centers" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")} onClick={() => setIsMenuOpen(false)}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">Find Donation Centers</h5>
+        <NavLink
+          to="/donation-centers"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">
+            Find Donation Centers
+          </h5>
         </NavLink>
-        <NavLink to="/create" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")} onClick={() => setIsMenuOpen(false)}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">Start Meal Planning</h5>
+        <NavLink
+          to="/create"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer mb-4">
+            Start Meal Planning
+          </h5>
         </NavLink>
       </div>
 
       {/* Desktop Menu */}
       <div className="hidden md:flex items-center gap-10">
-        <NavLink to="/" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">Home</h5>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">
+            Home
+          </h5>
         </NavLink>
-        <NavLink to="/recipes" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">Recipes</h5>
+        <NavLink
+          to="/recipes"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">
+            Recipes
+          </h5>
         </NavLink>
-        <NavLink to="/donation-centers" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">Find Donation Centers</h5>
+        <NavLink
+          to="/donation-centers"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">
+            Find Donation Centers
+          </h5>
         </NavLink>
-        <NavLink to="/create" className={({ isActive }) => (isActive ? "text-red-800" : "text-red-950")}>
-          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">Start Meal Planning</h5>
+        <NavLink
+          to="/create"
+          className={({ isActive }) =>
+            isActive ? "text-red-800" : "text-red-950"
+          }
+        >
+          <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">
+            Start Meal Planning
+          </h5>
         </NavLink>
       </div>
     </div>
