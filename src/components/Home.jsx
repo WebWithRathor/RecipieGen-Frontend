@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="w-full text-red-950 h-screen p-10 flex items-center justify-end relative z-0">
+    <div className="w-full text-red-950 h-screen p-5 bg-white/[0.2] lg:bg-transparent md:p-10 flex items-center justify-end relative z-0">
    
-      <div className="pr-10">
-        <h1 className="text-6xl mb-1.5 ">Zero Waste </h1>
-        <h1 className="text-6xl mb-1.5 "> Recipe Generator – </h1>
-        <h1 className="text-6xl mb-1.5 ">Cook Smart, Waste Less!</h1>
-        <p className="w-[87vh] mt-4">
+      <div className="md:pr-10">
+        <h1 className="text-3xl md:text-6xl mb-1.5 ">Zero Waste </h1>
+        <h1 className="text-3xl md:text-6xl mb-1.5 "> Recipe Generator – </h1>
+        <h1 className="text-3xl md:text-6xl mb-1.5 ">Cook Smart, Waste Less!</h1>
+        <p className="md:w-[87vh] mt-4">
           Transform leftovers into delicious meals with our Zero Waste Recipe
           Generator! Simply enter the ingredients you have, and we’ll suggest
           creative, sustainable recipes to minimize food waste. Eat well, save
