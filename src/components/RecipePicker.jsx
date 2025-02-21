@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { fetchRecipeSuggestions } from "../store/actions/RecipeAction";
-import RecipeCard from "./partials/recipieCard";
+import SingleRecipieCard from "./partials/SingleRecipieCard";
 
 const RecipePicker = () => {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const RecipePicker = () => {
                 <div className="mt-2 h-4 w-1/3 bg-gray-300 rounded"></div>
               </div>
             ))
-          : suggestedRecipes.map((recipe, i) => <RecipeCard recipe={recipe} key={i} />)}
+          : suggestedRecipes.map((recipe, i) => <SingleRecipieCard recipe={recipe} key={i} />)}
       </div>
     </div>
   );

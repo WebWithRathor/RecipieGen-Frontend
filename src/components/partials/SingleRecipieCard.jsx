@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import React from "react";
 
-const RecipeCard = ({ recipe }) => {
+const SingleRecipieCard = ({ recipe }) => {
   return (
     <Link to={`/recipe/${recipe.dishName}`}>
       <div className="bg-white rounded-lg shadow-md overflow-hidden transform transition hover:scale-105 cursor-pointer">
@@ -10,9 +10,7 @@ const RecipeCard = ({ recipe }) => {
           className="w-full h-32 object-cover"
         />
         <div className="p-4">
-          <h3 className="text-lg font-bold text-gray-800">
-            {recipe.dishName}
-          </h3>
+          <h3 className="text-lg font-bold text-gray-800">{recipe.dishName}</h3>
           <p className="text-gray-600 text-sm">
             {recipe.briefDescription.substring(0, 100) + "..."}
           </p>
@@ -22,4 +20,4 @@ const RecipeCard = ({ recipe }) => {
   );
 };
 
-export default RecipeCard;
+export default SingleRecipieCard;
