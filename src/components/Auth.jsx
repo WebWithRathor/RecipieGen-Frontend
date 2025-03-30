@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, signup } from "../store/actions/userAction";
-import Button from "../Components/Button";
 import InputField from "../Components/InputField";
+import Btn from "./Btn";
 
 // Component for handling both login and signup functionality
-const AuthPortal = ({ title, isLoginPage }) => {
+const Auth = ({ title, isLoginPage }) => {
     // Form state management
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -56,9 +56,9 @@ const AuthPortal = ({ title, isLoginPage }) => {
                     />
 
                     {/* Submit Button */}
-                    <Button type="submit" variant="primary" fullWidth>
+                    <Btn type="submit" variant="primary" fullWidth>
                         {isLoginPage ? "Login" : "Sign up"}
-                    </Button>
+                    </Btn>
                 </form>
 
                 {/* Toggle between login and signup */}
@@ -73,4 +73,4 @@ const AuthPortal = ({ title, isLoginPage }) => {
     );
 };
 
-export default AuthPortal;
+export default Auth;

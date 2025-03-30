@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Button = ({
+const Btn = ({
   children,
   onClick,
   to,
@@ -43,4 +43,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default Btn;
