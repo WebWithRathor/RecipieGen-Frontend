@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({
+const Inp = ({
   type = "text",
   value,
   onChange,
@@ -34,4 +34,4 @@ const InputField = ({
   );
 };
 
-export default InputField;
+export default Inp;

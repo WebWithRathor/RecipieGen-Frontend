@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, signup } from "../store/actions/userAction";
-import InputField from "../Components/InputField";
 import Btn from "./Btn";
+import Inp from "./Inp";
 
 // Component for handling both login and signup functionality
 const Auth = ({ title, isLoginPage }) => {
@@ -31,14 +31,14 @@ const Auth = ({ title, isLoginPage }) => {
                 </h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Email input */}
-                    {!isLoginPage && <InputField
+                    {!isLoginPage && <Inp
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Enter your name"
                         label="Name"
                     />}
-                    <InputField
+                    <Inp
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -47,7 +47,7 @@ const Auth = ({ title, isLoginPage }) => {
                     />
 
                     {/* Password input */}
-                    <InputField
+                    <Inp
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
