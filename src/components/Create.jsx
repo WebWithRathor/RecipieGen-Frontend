@@ -5,6 +5,7 @@ const Create = () => {
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [ingredientInput, setIngredientInput] = useState("");
+  const [preference, setPreference] = useState("protein");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Create = () => {
         setError("Please add at least one ingredient");
         return;
       }
-      navigate("/pickAny", { state: { description, ingredients } });
+      navigate("/pickAny", { state: { description, ingredients, preference } });
     } catch (error) {
       setError("Failed to generate recipe.");
     } finally {
@@ -85,6 +86,22 @@ const Create = () => {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Meal Preference
+            </label>
+            <select
+              value={preference}
+              onChange={(e) => setPreference(e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 focus:border-red-800 focus:ring-red-800 sm:text-sm py-2 px-3"
+            >
+              <option value="protein">Protein-rich</option>
+              <option value="tasty">Tasty</option>
+              <option value="low-calorie">Low Calorie</option>
+              <option value="vegan">Vegan</option>
+            </select>
           </div>
 
           <div>

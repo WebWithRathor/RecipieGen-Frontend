@@ -8,7 +8,7 @@ const Recipes = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (recipes.length === 0) dispatch(fetchAllRecipes());
+    if (!recipes) dispatch(fetchAllRecipes());
   }, [recipes]);
 
   return (
@@ -17,7 +17,7 @@ const Recipes = () => {
         Our Recipes
       </h1>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center place-items-center">
-        {recipes.length > 0 ? (
+        {recipes == null ? <h1 className="text-2xl md:text-3xl font-bold text-gray-400 text-center col-span-5">No Recipie</h1> : recipes.length > 0 ? (
           recipes.map((card, i) => <Card key={i} recipe={card} />)
         ) : (
           Array.from({ length: 5 }).map((_, index) => (

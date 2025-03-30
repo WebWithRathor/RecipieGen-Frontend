@@ -9,12 +9,12 @@ const RecipePicker = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   
-  const { description, ingredients } = location.state;
+  const { description, ingredients , preference } = location.state;
   const { suggestedRecipes, loading } = useSelector(state => state.RecipeReducer);
 
   useEffect(() => {
     if (description && ingredients) {
-      dispatch(fetchRecipeSuggestions({ description, ingredients }));
+      dispatch(fetchRecipeSuggestions({ description, ingredients , preference }));
     }
   }, [description, ingredients, dispatch]);
 

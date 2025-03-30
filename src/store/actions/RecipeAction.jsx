@@ -22,16 +22,9 @@ export const fetchAllRecipes = () => async (dispatch) => {
 
 export const fetchRecipeDetails = (dishName) => async (dispatch) => {
   try {
-    dispatch(setLoading(true)); // Set loading state before fetching
-
-    const cachedRecipe = localStorage.getItem(dishName);
-    if (cachedRecipe) {
-      dispatch(setRecipe(JSON.parse(cachedRecipe)));
-    } else {
-      const { recipe } = await getRecipeDetails(dishName);
-      dispatch(setRecipe(recipe));
-      localStorage.setItem(dishName, JSON.stringify(recipe));
-    }
+    dispatch(setLoading(true));
+    const { recipe } = await getRecipeDetails(dishName);
+    dispatch(setRecipe(recipe));
   } catch (error) {
     console.error("Error in fetchRecipeDetails action:", error.message);
   } finally {
@@ -43,19 +36,14 @@ export const fetchRecipeDetails = (dishName) => async (dispatch) => {
 export const fetchRecipeSuggestions = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    const { description, ingredients } = payload;
-    const key = `${description}-${ingredients.join(",")}`;
-    const cachedRecipes = localStorage.getItem(key);
-    if (cachedRecipes) {
-      dispatch(setSuggestedRecipes(JSON.parse(cachedRecipes)));
-    } else {
-      const { suggestions } = await getRecipeSuggestions(payload);
-      dispatch(setSuggestedRecipes(suggestions));
-      localStorage.setItem(key, JSON.stringify(suggestions));
-    }
+    const { suggestions } = await getRecipeSuggestions(payload);
+    console.log(suggestions);
+    dispatch(setSuggestedRecipes(suggestions));
   } catch (error) {
     console.error("Error in fetchRecipeSuggestions action:", error.message);
   } finally {
     dispatch(setLoading(false)); // Ensure loading is set to false after fetching
   }
 };
+
+

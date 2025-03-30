@@ -1,14 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecipeDetails } from "../store/actions/RecipeAction";
+import { saveRecipeAction, removeRecipeAction } from "../store/actions/userAction";
 
 const Recipe = () => {
   const { dishname } = useParams();
   const dispatch = useDispatch();
-  
+
   // Access Redux state
   const { recipe, loading } = useSelector((state) => state.RecipeReducer);
+  const { user } = useSelector((state) => state.UserReducer);
+
+  // Track save state locally to update UI instantly
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     if (dishname) {
@@ -16,11 +21,26 @@ const Recipe = () => {
     }
   }, [dishname, dispatch]);
 
+  useEffect(() => {
+    // Update isSaved when user state updates
+    setIsSaved(user?.savedDishes?.some(dish => dish._id === recipe?._id));
+  }, [user, recipe]);
+
+  const handleToggleSaveRecipe = async (id) => {
+    if (isSaved) {
+      await dispatch(removeRecipeAction(id));
+    } else {
+      await dispatch(saveRecipeAction(id));
+    }
+    setIsSaved(!isSaved); // Toggle local state for instant UI update
+  };
+
+
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
-          <div className="h-16 w-16 border-4 border-gray-300 border-t-4 border-t-red-500 rounded-full animate-spin"></div>
-          <p className="text-lg font-medium text-gray-700 mt-4">Fetching recipe details...</p>
+        <div className="h-16 w-16 border-4 border-gray-300 border-t-4 border-t-red-500 rounded-full animate-spin"></div>
+        <p className="text-lg font-medium text-gray-700 mt-4">Fetching recipe details...</p>
       </div>
     );
   }
@@ -60,14 +80,6 @@ const Recipe = () => {
           </div>
         </section>
 
-        {/* Cooking Time & Difficulty */}
-        <section className="mb-8 mt-6">
-          <h2 className="text-2xl font-semibold text-red-700 mb-4">Cooking Time & Difficulty</h2>
-          <p><strong>Preparation Time:</strong> {recipe?.cookingTimeAndDifficulty?.preparationTime}</p>
-          <p><strong>Cooking Time:</strong> {recipe?.cookingTimeAndDifficulty?.cookingTime}</p>
-          <p><strong>Difficulty Level:</strong> {recipe?.cookingTimeAndDifficulty?.difficultyLevel}</p>
-        </section>
-
         {/* Cooking Instructions */}
         <div className="w-full bg-gray-100 p-6 rounded-lg shadow-md mt-6">
           <h2 className="text-2xl font-bold text-red-800 mb-4">Steps</h2>
@@ -97,26 +109,15 @@ const Recipe = () => {
           </ol>
         </div>
 
-        {/* Serving Suggestions */}
-        <section className="my-8">
-          <h2 className="text-2xl font-semibold text-red-700 mb-4">Serving Suggestions</h2>
-          <p className="text-gray-700">{recipe?.servingSuggestions}</p>
-        </section>
+        {/* Floating Save/Remove Button */}
+        <button
+          onClick={() => handleToggleSaveRecipe(recipe._id)}
+          className={`fixed bottom-8 right-8 px-4 py-3 font-semibold rounded shadow-lg transition duration-300 ${isSaved ? "bg-gray-800 text-white hover:bg-gray-700" : "bg-red-950 text-white hover:bg-red-900"
+            }`}
+        >
+          {isSaved ? "❌ Remove Recipe" : "❤️ Save Recipe"}
+        </button>
 
-        {/* YouTube Tutorial */}
-        {recipe?.youtubeTutorial && (
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-red-700 mb-4">Video Tutorial</h2>
-            <div className="relative w-full" style={{ paddingBottom: "56.25%", height: 0 }}>
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-xl"
-                src={recipe.youtubeTutorial.replace("watch?v=", "embed/")}
-                title="Recipe Video Tutorial"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </section>
-        )}
       </div>
     </div>
   );

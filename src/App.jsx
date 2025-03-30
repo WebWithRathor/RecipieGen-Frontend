@@ -1,8 +1,11 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import AppRoutes from "./routes/AppRoutes";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
+  const path = useLocation().pathname;
+
   return (
     <>
       <div className="h-screen w-full fixed top-0 left-0 z-[-1]">
@@ -12,7 +15,7 @@ const App = () => {
           alt=""
         />
       </div>
-      <Navbar />
+      { <Navbar />}
       <AppRoutes />
     </>
   );

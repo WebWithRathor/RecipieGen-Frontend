@@ -1,6 +1,6 @@
 import axios from "../utils/axios";
 
-export const getRecipeSuggestions = async ({ ingredients, description }) => {
+export const getRecipeSuggestions = async ({ ingredients, description, preference }) => {
   try {
     if (!ingredients?.length && !description) {
       throw new Error("Please provide ingredients or a description.");
@@ -8,6 +8,7 @@ export const getRecipeSuggestions = async ({ ingredients, description }) => {
     const response = await axios.post("/recipe/suggestRecipes", {
       ingredients,
       description,
+      preference
     });
     return response.data;
   } catch (error) {
@@ -35,6 +36,28 @@ export const getRecipeDetails = async (dishName) => {
     return response.data;
   } catch (error) {
     console.error("Error in getRecipeDetails service:", error.message);
+    throw error;
+  }
+};
+
+export const saveRecipe = async (recipeId) => {
+  try {
+    const response = await axios.post("/recipe/saveRecipe", { recipeId });
+    return response.data;
+  } catch (error) {
+    console.error("Error in saveRecipe service:", error.message);
+    throw error;
+  }
+};
+
+export const removeRecipe = async (recipeId) => {
+  try {
+    console.log(recipeId);
+    
+    const response = await axios.post("/recipe/removeRecipe", { recipeId });
+    return response.data;
+  } catch (error) {
+    console.error("Error in removeRecipe service:", error.message);
     throw error;
   }
 };
