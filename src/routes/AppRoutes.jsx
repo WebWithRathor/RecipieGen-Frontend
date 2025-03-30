@@ -5,9 +5,9 @@ import Recipes from "../components/Recipes";
 import Create from "../components/Create";
 import Recipe from "../components/Recipe";
 import RecipePicker from "../components/RecipePicker";
-import Auth from "../components/Auth";
 import ProtectedRoute from "../components/partials/ProtectedRoute";
 import SavedRecipie from "../components/SavedRecipie";
+import Auth from "../components/Auth";
 
 const AppRoutes = () => {
   return (
