@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
@@ -10,32 +10,41 @@ const Create = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const submitHandler = async (e) => {
+  const submitHandler = useCallback(async (e) => {
     e.preventDefault();
     if (!description.trim() && ingredients.length === 0) {
       setError("Please enter a description or add at least one ingredient.");
       return;
     }
+    if (ingredients.length === 0) {
+      setError("Please add at least one ingredient");
+      return;
+    }
     setLoading(true);
+    setError(null);
     try {
-      if (ingredients.length === 0) {
-        setError("Please add at least one ingredient");
-        return;
-      }
       navigate("/pickAny", { state: { description, ingredients, preference } });
-    } catch (error) {
-      setError("Failed to generate recipe.");
+    } catch (err) {
+      setError("Failed to navigate.");
+      console.error("Navigation error:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [description, ingredients, preference, navigate]);
 
-  const addIngredientHandler = () => {
-    if (ingredientInput.trim() && !ingredients.includes(ingredientInput)) {
-      setIngredients([...ingredients, ...ingredientInput.split(',')]);
-      setIngredientInput("");
+  const addIngredientHandler = useCallback(() => {
+    if (ingredientInput.trim()) {
+      const newIngredients = ingredientInput
+        .split(',')
+        .map(ing => ing.trim())
+        .filter(ing => ing && !ingredients.includes(ing));
+
+      if (newIngredients.length > 0) {
+        setIngredients([...ingredients, ...newIngredients]);
+        setIngredientInput("");
+      }
     }
-  };
+  }, [ingredientInput, ingredients, setIngredients]);
 
   return (
     <div className="h-screen w-full flex items-center justify-center px-4">
@@ -69,7 +78,7 @@ const Create = () => {
                 value={ingredientInput}
                 onChange={(e) => setIngredientInput(e.target.value)}
                 className="flex-1 block w-full rounded-md border border-gray-300 focus:border-red-800 focus:ring-red-800 sm:text-sm py-2 px-3"
-                placeholder="Enter an ingredient"
+                placeholder="Enter an ingredient (comma-separated)"
               />
               <button
                 type="button"
@@ -108,6 +117,7 @@ const Create = () => {
             <button
               type="submit"
               className="w-full bg-red-950 text-white font-medium py-2 px-4 rounded-md shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 transition"
+              disabled={loading}
             >
               {loading ? "Generating..." : "Submit"}
             </button>
