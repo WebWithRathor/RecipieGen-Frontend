@@ -8,11 +8,9 @@ const Recipe = () => {
   const { dishname } = useParams();
   const dispatch = useDispatch();
 
-  // Access Redux state
   const { recipe, loading } = useSelector((state) => state.RecipeReducer);
   const { user } = useSelector((state) => state.UserReducer);
 
-  // Track save state locally to update UI instantly
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
