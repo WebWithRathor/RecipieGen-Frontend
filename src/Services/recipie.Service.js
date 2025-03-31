@@ -52,8 +52,6 @@ export const saveRecipe = async (recipeId) => {
 
 export const removeRecipe = async (recipeId) => {
   try {
-    console.log(recipeId);
-    
     const response = await axios.post("/recipe/removeRecipe", { recipeId });
     return response.data;
   } catch (error) {

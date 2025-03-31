@@ -40,7 +40,7 @@ export const fetchRecipeSuggestions = (payload, navigate) => async (dispatch) =>
     const { suggestions } = await getRecipeSuggestions(payload);
     if (suggestions.length == 0) {
       navigate('/create');
-      toast.error("Provide proper ingredients & description.");
+      toast.warning("Provide proper ingredients & description.");
     }
     dispatch(setSuggestedRecipes(suggestions));
   } catch (error) {
