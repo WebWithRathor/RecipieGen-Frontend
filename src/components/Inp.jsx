@@ -27,6 +27,7 @@ const Inp = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          required={true}
           className={`w-full p-2 ${icon ? "pl-10" : "pl-3"} pr-3 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-red-800 transition-all duration-200 shadow-sm ${className}`}
         />
       </div>

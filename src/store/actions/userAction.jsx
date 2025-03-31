@@ -1,10 +1,11 @@
+import { toast } from "sonner";
 import { removeRecipe, saveRecipe } from "../../Services/recipie.Service";
 import {
     getUser,
     loginUser,
     logoutUser,
     registerUser,
-} from "../../Services/user.service"; // Ensure these functions exist in the correct path
+} from "../../Services/user.service";
 
 import { setUser } from "../reducers/userSlice";
 
@@ -13,37 +14,10 @@ const handleAsync = (asyncFn) => async (dispatch, getState) => {
         const result = await asyncFn(dispatch, getState);
         return result;
     } catch (error) {
-        console.log(error);
+        console.log(error?.response?.data?.message);
         return null;
     }
 };
-
-
-export const updateUserAction = (userId, userData) => handleAsync(async (dispatch, getState) => {
-    const { users } = getState().userreducer;
-    const existingUser = users.find(user => user.id === userId);
-    if (!existingUser) {
-        return null;
-    }
-
-    let updatedFields = { ...userData };
-    if (userData.name) {
-        const [first_name, ...lastNameParts] = userData.name.trim().split(" ");
-        updatedFields.first_name = first_name;
-        updatedFields.last_name = lastNameParts.join(" ") || existingUser.last_name;
-        delete updatedFields.name;
-    }
-
-    const updatedUser = await updateUser(userId, { ...existingUser, ...updatedFields });
-    if (!updatedUser) {
-        return null;
-    }
-
-    dispatch(setUser(updatedUser));
-    return updatedUser;
-});
-
-
 
 export const fetchUser = () => handleAsync(async (dispatch) => {
     const { user } = await getUser();
@@ -58,6 +32,7 @@ export const logout = (navigate) => handleAsync(async (dispatch) => {
     await logoutUser();
     dispatch(setUser(null));
     navigate("/");
+    toast.success('Successfully logged out!');
     return true;
 });
 
@@ -65,6 +40,7 @@ export const signup = (userData, navigate) => handleAsync(async (dispatch) => {
     const { data } = await registerUser(userData);
     dispatch(setUser(data));
     navigate("/home");
+    toast.success('Successfully signed up!');
     return data;
 });
 
@@ -73,26 +49,24 @@ export const login = (userData, navigate) => handleAsync(async (dispatch) => {
     if (!data) throw Error("Invalid Credentials");
     dispatch(setUser(data.data));
     navigate("/home");
+    toast.success('Successfully logged in!');
     return data;
 });
 
 export const saveRecipeAction = (recipeId) => handleAsync(async (dispatch, getState) => {
     const { user } = getState().UserReducer;
     if (!user) return null;
-
     const data = await saveRecipe(recipeId);
-    console.log(data);
-    
     dispatch(setUser({ ...user, savedDishes: data.savedDishes }));
+    toast.success('Successfully Saved!');
     return data;
 });
 
 export const removeRecipeAction = (recipeId) => handleAsync(async (dispatch, getState) => {
     const { user } = getState().UserReducer;
     if (!user) return null;
-    console.log(recipeId);
-    
     const data = await removeRecipe(recipeId);
+    toast.success('Successfully removed!');
     dispatch(setUser({ ...user, savedDishes: data.savedDishes }));
     return data;
 });

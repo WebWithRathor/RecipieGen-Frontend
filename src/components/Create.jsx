@@ -32,7 +32,7 @@ const Create = () => {
 
   const addIngredientHandler = () => {
     if (ingredientInput.trim() && !ingredients.includes(ingredientInput)) {
-      setIngredients([...ingredients, ingredientInput]);
+      setIngredients([...ingredients, ...ingredientInput.split(',')]);
       setIngredientInput("");
     }
   };

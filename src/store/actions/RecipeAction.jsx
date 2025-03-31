@@ -10,6 +10,7 @@ import {
   getRecipeDetails,
   getRecipeSuggestions,
 } from "../../Services/recipie.Service.js";
+import { toast } from "sonner";
 
 export const fetchAllRecipes = () => async (dispatch) => {
   try {
@@ -26,23 +27,26 @@ export const fetchRecipeDetails = (dishName) => async (dispatch) => {
     const { recipe } = await getRecipeDetails(dishName);
     dispatch(setRecipe(recipe));
   } catch (error) {
-    console.error("Error in fetchRecipeDetails action:", error.message);
+    toast.error(error.message);
   } finally {
-    dispatch(setLoading(false)); // Ensure loading is set to false after fetching
+    dispatch(setLoading(false));
   }
 };
 
 
-export const fetchRecipeSuggestions = (payload) => async (dispatch) => {
+export const fetchRecipeSuggestions = (payload, navigate) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const { suggestions } = await getRecipeSuggestions(payload);
-    console.log(suggestions);
+    if (suggestions.length == 0) {
+      navigate('/create');
+      toast.error("Provide proper ingredients & description.");
+    }
     dispatch(setSuggestedRecipes(suggestions));
   } catch (error) {
     console.error("Error in fetchRecipeSuggestions action:", error.message);
   } finally {
-    dispatch(setLoading(false)); // Ensure loading is set to false after fetching
+    dispatch(setLoading(false));
   }
 };
 
