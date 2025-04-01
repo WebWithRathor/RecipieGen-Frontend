@@ -83,6 +83,9 @@ const Navbar = () => {
             >
               <h5 className="hover:text-red-900 text-sm duration-75 cursor-pointer">Saved Recipies</h5>
             </NavLink>
+               <button onClick={handleLogout} className="text-sm px-3 py-2 cursor-pointer font-medium rounded-lg transition-all duration-200 flex items-center gap-2 justify-center bg-red-950 text-white hover:bg-red-900 focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
+              Logout
+            </button>
           </div>
 
           <div className="hidden md:flex items-center gap-10">
